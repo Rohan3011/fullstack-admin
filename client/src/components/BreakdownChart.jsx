@@ -32,7 +32,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
       minWidth={isDashboard ? "325px" : undefined}
       position="relative"
     >
-      <ResponsivePie
+      {/* <ResponsivePie
         data={formattedData}
         theme={{
           axis: {
@@ -77,10 +77,10 @@ const BreakdownChart = ({ isDashboard = false }) => {
         innerRadius={0.45}
         activeOuterRadiusOffset={8}
         borderWidth={1}
-        borderColor={{
-          from: "color",
-          modifiers: [["darker", 0.2]],
-        }}
+        // borderColor={{
+        //   from: "color",
+        //   modifiers: [["darker", 0.2]],
+        // }}
         enableArcLinkLabels={!isDashboard}
         arcLinkLabelsTextColor={theme.palette.secondary[200]}
         arcLinkLabelsThickness={2}
@@ -115,7 +115,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
             ],
           },
         ]}
-      />
+      /> */}
       <Box
         position="absolute"
         top="50%"

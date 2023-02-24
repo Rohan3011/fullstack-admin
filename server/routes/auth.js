@@ -46,24 +46,20 @@ async function handleRegister (req, res) {
   try {
     const user = req.body.user
 
-    const userExist = getUserByEmail(user.email)
+    const userExist = await getUserByEmail(user.email)
     if (userExist) {
-      return res.status(403).send({ error: 'User with email already exists' })
+      console.log('user already exits')
+      return res.status(401).send({ error: 'User with email already exists' })
     }
 
     const salt = await bcrypt.genSalt(saltRounds)
     const hashedPassword = await bcrypt.hash(user?.password, salt)
     user.password = hashedPassword
-    const { data, err } = createUser(user)
-    if (err) {
-      res.status(403).send({
-        error: err
-      })
-    } else {
-      res.send({ success: 'User created successfully', data: data })
-    }
+
+    const result = await createUser(user)
+    res.send({ success: 'User created successfully', data: result })
   } catch (err) {
-    res.status(403).send({
+    res.status(401).send({
       error: 'Failed to create User',
       err
     })
@@ -81,7 +77,7 @@ router.post('/login', (req, res, next) => {
       return next(err)
     }
     if (!user) {
-      return res.status(403).send({ error: info })
+      return res.status(401).send({ error: info })
     }
 
     req.logIn(user, function (err) {

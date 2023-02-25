@@ -5,6 +5,7 @@ import {
   Menu as MenuIcon,
   Search,
   ArrowDropDownOutlined,
+  AccountCircleTwoTone,
 } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import FlexBetween from "components/FlexBetween";
@@ -23,10 +24,14 @@ import {
   MenuItem,
   useTheme,
   Modal,
+  Avatar,
 } from "@mui/material";
+import { logout } from "redux/slices/user";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
@@ -47,6 +52,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const handleCloseProductModal = () => {
     handleAddElClose();
     setShowProductModal(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
   };
 
   return (
@@ -98,7 +108,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
               <MenuItem onClick={handleOpenProductModal}>Add Product</MenuItem>
-              <MenuItem onClick={handleAddElClose}>Add Employee</MenuItem>
+              <MenuItem onClick={() => navigate("/register")}>
+                Add Employee
+              </MenuItem>
             </Menu>
           </FlexBetween>
 
@@ -113,15 +125,12 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 gap: "1rem",
               }}
             >
-              <Box
-                component="img"
-                alt="profile"
-                src={profileImage}
-                height="32px"
-                width="32px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
-              />
+              <Avatar sx={{ bgcolor: theme.palette.secondary[400] }}>
+                {user &&
+                  user.name
+                    ?.split(" ")
+                    ?.reduce((prev, curr) => prev + curr[0]?.toUpperCase(), "")}
+              </Avatar>
               <Box textAlign="left">
                 <Typography
                   fontWeight="bold"
@@ -147,7 +156,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

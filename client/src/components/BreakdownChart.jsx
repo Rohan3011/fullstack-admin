@@ -32,7 +32,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
       minWidth={isDashboard ? "325px" : undefined}
       position="relative"
     >
-      {/* <ResponsivePie
+      <ResponsivePie
         data={formattedData}
         theme={{
           axis: {
@@ -115,7 +115,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
             ],
           },
         ]}
-      /> */}
+      />
       <Box
         position="absolute"
         top="50%"
@@ -130,7 +130,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
         }}
       >
         <Typography variant="h6">
-          {!isDashboard && "Total:"} ${data.yearlySalesTotal}
+          {!isDashboard && "Total:"} ₹{data.yearlySalesTotal}
         </Typography>
       </Box>
     </Box>

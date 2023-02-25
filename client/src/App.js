@@ -22,6 +22,12 @@ import Register from 'scenes/auth/Register'
 import { Provider as ReduxProvider } from 'react-redux'
 import store from 'redux/store'
 import AdminOnlyRoute from 'utils/AdminOnly'
+import SalesTeamOnlyRoute from 'utils/SalesTeamOnly'
+import ProductTeamOnlyRoute from 'utils/ProductTeamOnly'
+import NotFound from 'scenes/404/NotFound'
+import NotAuthenticated from 'utils/NotAuthenticated'
+import NoAccess from 'scenes/404/NoAccess'
+import ProtectedRoute from 'utils/ProtectedRoute'
 
 function App () {
   return (
@@ -45,44 +51,43 @@ function AppWrapper () {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route element={<Layout />}>
-          <Route path='/' element={<Navigate to='/dashboard' replace />} />
+        <Route
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path='/' element={<Navigate to='/login' replace />} />
           <Route path='/dashboard' element={<Dashboard />} />
+
           <Route path='/products' element={<Products />} />
           <Route path='/customers' element={<Customers />} />
           <Route path='/transactions' element={<Transactions />} />
           <Route path='/geography' element={<Geography />} />
+
           <Route path='/overview' element={<Overview />} />
           <Route path='/daily' element={<Daily />} />
           <Route path='/monthly' element={<Monthly />} />
           <Route path='/breakdown' element={<Breakdown />} />
-          <Route
-            path='/admin'
-            element={
-              <AdminOnlyRoute>
-                <Admin />
-              </AdminOnlyRoute>
-            }
-          />
-          <Route
-            path='/performance'
-            element={
-              <AdminOnlyRoute>
-                <Performance />
-              </AdminOnlyRoute>
-            }
-          />
+
+          <Route element={<AdminOnlyRoute />}>
+            <Route path='/admin' element={<Admin />} />
+            <Route path='/performance' element={<Performance />} />
+          </Route>
         </Route>
-        <Route path='/login' element={<Login />} />
+
         <Route
-          path='/register'
+          path='/login'
           element={
-            <AdminOnlyRoute>
-              <Register />
-            </AdminOnlyRoute>
+            <NotAuthenticated>
+              <Login />
+            </NotAuthenticated>
           }
         />
-        <Route path='*' element={<p>There's nothing here: 404!</p>} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/no-access' element={<NoAccess />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </ThemeProvider>
   )

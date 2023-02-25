@@ -1,4 +1,4 @@
-import { Insights, StorefrontTwoTone } from "@mui/icons-material";
+import { Insights } from "@mui/icons-material";
 import {
   Alert,
   Backdrop,
@@ -52,7 +52,7 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const user = await login(values);
-        dispatch(setUser(user));
+        if (user) dispatch(setUser(user.data));
         navigate("/dashboard");
       } catch (error) {
         console.error(error);

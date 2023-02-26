@@ -28,6 +28,7 @@ import {
 } from "@mui/material";
 import { logout } from "redux/slices/user";
 import { useNavigate } from "react-router-dom";
+import AddProduct from "scenes/products/AddProduct";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -183,6 +184,7 @@ const AddProductModal = ({ open, handleClose }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        overflow: "auto",
       }}
     >
       <Box
@@ -190,17 +192,12 @@ const AddProductModal = ({ open, handleClose }) => {
           backgroundImage: "none",
           backgroundColor: theme.palette.background.alt,
           borderRadius: "0.55rem",
-          // position: "absolute",
+          overflow: "auto",
           width: "fit",
           margin: "auto",
         }}
       >
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+        <AddProduct />
       </Box>
     </Modal>
   );

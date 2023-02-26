@@ -28,6 +28,7 @@ import NotFound from 'scenes/404/NotFound'
 import NotAuthenticated from 'utils/NotAuthenticated'
 import NoAccess from 'scenes/404/NoAccess'
 import ProtectedRoute from 'utils/ProtectedRoute'
+import AddProduct from 'scenes/products/AddProduct'
 
 function App () {
   return (
@@ -62,6 +63,7 @@ function AppWrapper () {
           <Route path='/dashboard' element={<Dashboard />} />
 
           <Route path='/products' element={<Products />} />
+          <Route path='/products/add' element={<AddProduct />} />
           <Route path='/customers' element={<Customers />} />
           <Route path='/transactions' element={<Transactions />} />
           <Route path='/geography' element={<Geography />} />
@@ -71,10 +73,22 @@ function AppWrapper () {
           <Route path='/monthly' element={<Monthly />} />
           <Route path='/breakdown' element={<Breakdown />} />
 
-          <Route element={<AdminOnlyRoute />}>
-            <Route path='/admin' element={<Admin />} />
-            <Route path='/performance' element={<Performance />} />
-          </Route>
+          <Route
+            path='/admin'
+            element={
+              <AdminOnlyRoute>
+                <Admin />
+              </AdminOnlyRoute>
+            }
+          />
+          <Route
+            path='/performance'
+            element={
+              <AdminOnlyRoute>
+                <Performance />
+              </AdminOnlyRoute>
+            }
+          />
         </Route>
 
         <Route

@@ -52,8 +52,10 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const user = await login(values);
-        if (user) dispatch(setUser(user.data));
-        navigate("/dashboard");
+        if (user?.data) {
+          dispatch(setUser(user.data));
+          navigate("/dashboard");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -84,7 +86,7 @@ function Login() {
             </Button>
           }
         >
-          {JSON.stringify(error)}
+          {error?.error?.message || "Something went wrong! please try again."}
         </Alert>
       )}
       {!isSuccess && (

@@ -36,11 +36,11 @@ const Product = ({
         borderRadius: "0.55rem",
       }}
     >
-      <CardMedia
+      {/* <CardMedia
         sx={{ height: 140, objectFit: "inherit" }}
         image="https://images.unsplash.com/photo-1554577621-1a3def0b656c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80"
         title="green iguana"
-      />
+      /> */}
       <CardContent>
         <Typography
           sx={{ fontSize: 14 }}

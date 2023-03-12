@@ -81,14 +81,14 @@ function AppWrapper () {
               </AdminOnlyRoute>
             }
           />
-          <Route
+          {/* <Route
             path='/performance'
             element={
               <AdminOnlyRoute>
                 <Performance />
               </AdminOnlyRoute>
             }
-          />
+          /> */}
         </Route>
 
         <Route

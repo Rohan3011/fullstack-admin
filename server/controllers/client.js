@@ -3,12 +3,21 @@ import ProductStat from '../models/ProductStat.js'
 import User from '../models/User.js'
 import Transaction from '../models/Transaction.js'
 import getCountryIso3 from 'country-iso-2-to-3'
-import { addProduct } from '../services/product.js'
+import { addProduct, deleteProduct } from '../services/product.js'
 
 export const addProductController = async (req, res) => {
   try {
     const product = req.body
     const result = await addProduct(product)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(404).json({ message: error?.message })
+  }
+}
+export const deleteProductController = async (req, res) => {
+  try {
+    const id = req.params.id
+    const result = await deleteProduct(id)
     res.status(200).json(result)
   } catch (error) {
     res.status(404).json({ message: error?.message })

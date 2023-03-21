@@ -60,6 +60,18 @@ export const api = createApi({
       transformErrorResponse: (response, meta, arg) => response.data,
       invalidatesTags: ['Products']
     }),
+    deleteProduct: build.mutation({
+      query: id => ({
+        url: `/client/product/${id}`,
+        method: 'DELETE'
+      }),
+
+      // Pick out data and prevent nested properties in a hook or selector
+      transformResponse: (response, meta, arg) => response.data,
+      // Pick out errors and prevent nested properties in a hook or selector
+      transformErrorResponse: (response, meta, arg) => response.data,
+      invalidatesTags: ['Products']
+    }),
 
     getProducts: build.query({
       query: () => 'client/products',
@@ -103,6 +115,7 @@ export const api = createApi({
 export const {
   useGetUserQuery,
   useAddProductMutation,
+  useDeleteProductMutation,
   useGetProductsQuery,
   useGetCustomersQuery,
   useGetTransactionsQuery,

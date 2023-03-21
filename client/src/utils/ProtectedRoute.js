@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useSelector(state => state.user)
   let location = useLocation()
 
-  if (!user.isLoggedIn) {
+  if (!user || !user.isLoggedIn) {
     return <Navigate to='/login' state={{ from: location }} replace />
   }
   return children

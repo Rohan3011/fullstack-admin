@@ -44,6 +44,8 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const handleAddElClick = (event) => setAddEl(event.currentTarget);
   const handleAddElClose = () => setAddEl(null);
 
+  const isAdmin = user && user.role === "admin";
+
   // Add Product Modal
   const [showProductModal, setShowProductModal] = useState(false);
   const handleOpenProductModal = () => {
@@ -98,22 +100,26 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
           </IconButton>
 
           {/* Add */}
-          <FlexBetween>
-            <IconButton onClick={handleAddElClick}>
-              <AddIcon sx={{ fontSize: "25px" }} />
-            </IconButton>
-            <Menu
-              anchorEl={addEl}
-              open={isAddElOpen}
-              onClose={handleAddElClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-              <MenuItem onClick={handleOpenProductModal}>Add Product</MenuItem>
-              <MenuItem onClick={() => navigate("/register")}>
-                Add Employee
-              </MenuItem>
-            </Menu>
-          </FlexBetween>
+          {isAdmin && (
+            <FlexBetween>
+              <IconButton onClick={handleAddElClick}>
+                <AddIcon sx={{ fontSize: "25px" }} />
+              </IconButton>
+              <Menu
+                anchorEl={addEl}
+                open={isAddElOpen}
+                onClose={handleAddElClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              >
+                <MenuItem onClick={handleOpenProductModal}>
+                  Add Product
+                </MenuItem>
+                <MenuItem onClick={() => navigate("/register")}>
+                  Add Employee
+                </MenuItem>
+              </Menu>
+            </FlexBetween>
+          )}
 
           <FlexBetween>
             <Button
@@ -126,7 +132,14 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 gap: "1rem",
               }}
             >
-              <Avatar sx={{ bgcolor: theme.palette.secondary[400] }}>
+              <Avatar
+                sx={{
+                  bgcolor: theme.palette.secondary[400],
+                  border: isAdmin ? "3px" : "0px",
+                  borderStyle: "solid",
+                  borderColor: "cyan",
+                }}
+              >
                 {user &&
                   user.name
                     ?.split(" ")
